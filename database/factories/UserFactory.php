@@ -15,11 +15,10 @@ class UserFactory extends Factory
     public function definition()
     {
        return [
-        'image' => $this->faker->imageUrl(), // Generate a URL for an image
         'username' => $this->faker->unique()->userName, // Generate a unique username
         'name' => $this->faker->name,
-        'jekel' => $this->faker->randomElement(['Perempuan', 'Laki-laki', 'None']), // Generate a random gender
-        'tgl_lahir' => $this->faker->date(), // Generate a random date
+        'gender' => $this->faker->randomElement(['Woman', 'Man', 'None']), // Generate a random gender
+        'date_of_birth' => $this->faker->date(), // Generate a random date
         'email' => $this->faker->unique()->safeEmail,
         'role' => $this->faker->randomElement(['User']), // Generate a random role
         'email_verified_at' => now(),

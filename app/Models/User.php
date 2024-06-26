@@ -24,9 +24,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Candidate::class);
     }
-     public function election()
+    
+     public function voter()
     {
-        return $this->hasMany(Election::class);
+        return $this->hasMany(Voter::class);
     }
 
     protected static function boot()

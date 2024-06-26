@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Election;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,10 +16,9 @@ class ElectionController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
         $election = Election::orderBy('id','desc')->paginate(5);
-        return view('dashboard.election.index', [
-            'title' => 'Daftar Pemilih',
+        return view('dashboard.election.index',[
+            'title' => 'List Election',
             'elections' => $election
         ]);
     }
@@ -32,11 +30,8 @@ class ElectionController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-         $user = User::all();
-        return view('dashboard.election.create', [
-            'title' => 'Create Candidate',
-            'users' => $user
+        return view('dashboard.election.create',[
+            'title' => 'Create Election',
         ]);
     }
 
@@ -48,16 +43,18 @@ class ElectionController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user();
         $validated = $request->validate([
-            'user_id' => 'required',
+            'name' => 'required|max:225',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
         ]);
-        $election = Election::create($validated);
 
+        $election = Election::create($validated);
         if ($election) {
-            return redirect()->route('election.index')->with('success', 'Berhasil');
+            return redirect()->route('election.index')->with('success', 'Success');
         }
-        return redirect()->back()->with('error', 'Gagal');
+        return redirect()->back()->with('error', 'Failed');
+
     }
 
     /**
@@ -102,14 +99,14 @@ class ElectionController extends Controller
      */
     public function destroy($id)
     {
-        $user = Auth::user();
+         $user = Auth::user();
          $election = Election::find($id);
 
         $election->delete();
         if ($election) {
-        return redirect()->route('election.index')->with('success', 'Berhasil');
+        return redirect()->route('election.index')->with('success', 'Success');
     } else {
-        return redirect()->back()->with('error', 'Gagal');
+        return redirect()->back()->with('error', 'Failed');
     }
     }
 }

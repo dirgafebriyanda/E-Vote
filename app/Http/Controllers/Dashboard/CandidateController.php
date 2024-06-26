@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Candidate;
+use App\Models\Election;
 use App\Models\User;
+use App\Models\Voter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,10 +19,14 @@ class CandidateController extends Controller
      */
     public function index()
     {
+         $election = Election::all();
+        $voter = Voter::orderBy('id', 'desc')->get();
         $candidate = Candidate::orderBy('id', 'desc')->paginate(5);
         return view('dashboard.candidate.index',[
             'title' => 'Candidate',
-            'candidates' => $candidate
+            'candidates' => $candidate,
+            'voters' => $voter,
+            'elections' => $election,
         ]);
     }
 
@@ -31,10 +37,12 @@ class CandidateController extends Controller
      */
     public function create()
     {
-        $user = User::all();
+        $user = User::orderBy('id','desc')->get();
+        $election = Election::orderBy('id','desc')->get();
         return view('dashboard.candidate.create', [
             'title' => 'Create Candidate',
-            'users' => $user
+            'users' => $user,
+            'elections' => $election,
         ]);
     }
 
@@ -49,6 +57,7 @@ class CandidateController extends Controller
         Auth::user();
         $validated = $request->validate([
             'user_id' => 'required',
+            'election_id' => 'required',
         ]);
         $candidate = Candidate::create($validated);
 

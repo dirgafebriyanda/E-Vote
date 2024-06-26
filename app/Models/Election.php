@@ -9,9 +9,18 @@ class Election extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    
-    public function user()
+
+     public function voter()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->hasMany(Voter::class, 'election_id', 'id');
     }
+     public function vote()
+    {
+        return $this->hasMany(Vote::class, 'election_id', 'id');
+    }
+     public function candidate()
+{
+    return $this->hasMany(Candidate::class, 'election_id', 'id');
+}
+
 }

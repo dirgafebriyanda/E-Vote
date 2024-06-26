@@ -24,8 +24,8 @@
                                                 placeholder="Enter Username Or Email Address..." name="login">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
-                                                id="password" placeholder="Password" name="password">
+                                            <input type="password" class="form-control form-control-user" id="password"
+                                                placeholder="Password" name="password">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
@@ -33,7 +33,7 @@
                                                 <label class="custom-control-label" for="showPassword">Show Password</label>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-dark btn-user btn-block">
+                                        <button type="submit" class="btn btn-danger btn-user btn-block">
                                             Login
                                         </button>
                                     </form>

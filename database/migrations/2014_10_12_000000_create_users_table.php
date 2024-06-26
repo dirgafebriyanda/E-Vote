@@ -18,12 +18,12 @@ class CreateUsersTable extends Migration
             $table->string('image')->nullable();
             $table->string('username')->unique();
             $table->string('name');
-            $table->enum('jekel', ['Perempuan', 'Laki-laki', 'None'])->nullable('None');
-            $table->date('tgl_lahir')->nullable();
+            $table->enum('gender', ['Woman', 'Man', 'None'])->nullable('None');
+            $table->date('date_of_birth')->nullable();
             $table->string('email')->unique();
-            $table->string('visi')->nullable();
-            $table->string('misi')->nullable();
-            $table->enum('role', ['User', 'Admin', 'Super admin'])->default('User');
+            $table->string('vision')->nullable();
+            $table->string('mission')->nullable();
+            $table->enum('role', ['User', 'Admin', 'Voter', 'Candidate', 'Super admin'])->default('User');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

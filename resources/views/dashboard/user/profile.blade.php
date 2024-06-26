@@ -7,7 +7,7 @@
                 @auth
                     <h6 class="m-0 font-weight-bold text-dark"><a href="{{ route('dashboard') }}" id="open" readonly> <i
                                 class="fas fa-fw fa-tachometer-alt"></i>
-                            Menu Utama</a> / Profil
+                            Dashboard</a> / Profile
                     </h6>
                 @endauth
             </div>
@@ -21,12 +21,17 @@
                         <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#gantipassword">
                                 <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Ganti Password
+                                Change Password
                             </a>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#hapusAkun">
-                                <i class="fas fa-trash fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Hapus Akun
-                            </a>
+                            @auth
+                                @if (auth()->user()->role != 'Super admin')
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#hapusAkun">
+                                        <i class="fas fa-trash fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Delete acount
+                                    </a>
+                                @endif
+                            @endauth
+
                         </div>
                     </div>
                 @endif
@@ -65,7 +70,7 @@
                                     src="{{ asset('storage/' . $users->image) }}">
                             @else
                                 <img id="preview" class="rounded-circle" width="150px"
-                                    src="{{ $users->jekel == 'Laki-laki' ? asset('img/user/man.png') : ($users->jekel == 'Perempuan' ? asset('img/user/woman.png') : asset('img/user/user-default.png')) }}">
+                                    src="{{ $users->gender == 'Man' ? asset('img/user/man.png') : ($users->gender == 'Woman' ? asset('img/user/woman.png') : asset('img/user/user-default.png')) }}">
                             @endif
                             <span class="font-weight-bold">{{ $users->name }}</span>
                             <span class="text-black-50">{{ $users->email }}</span>
@@ -75,13 +80,13 @@
                         <div class="">
                             <div class="row mt-2">
                                 <div class="col-md-12">
-                                    <label class="labels">Foto Profil<sup class="text-danger fw-bold">*</sup> :</label>
+                                    <label class="labels">Image<sup class="text-danger fw-bold">*</sup> :</label>
                                     <input type="hidden" name="oldImage" value="{{ $users->image }}">
                                     <div class="custom-file">
                                         <input id="image" type="file"
                                             class="custom-file-input @error('image') is-invalid @enderror" name="image"
                                             onchange="previewImage(event)" disabled>
-                                        <label class="custom-file-label" for="image" id="fileLabel">Pilih file</label>
+                                        <label class="custom-file-label" for="image" id="fileLabel">Select file</label>
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +100,7 @@
                             </div>
                             <div class="row mt-2">
                                 <div class="col-md-12">
-                                    <label class="labels">Nama<sup class="text-danger fw-bold">*</sup> :</label>
+                                    <label class="labels">Name<sup class="text-danger fw-bold">*</sup> :</label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
                                         placeholder="nama lengkap" name="name" value="{{ old('name', $users->name) }}"
                                         id="name" readonly>
@@ -109,28 +114,30 @@
                         <div class="">
                             <div class="row mt-2">
                                 <div class="col-md-12">
-                                    <label class="labels">Jenis Kelamin<sup class="text-danger fw-bold">*</sup>
+                                    <label class="labels">Gender<sup class="text-danger fw-bold">*</sup>
                                         :</label><br>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input @error('jekel') is-invalid @enderror"
-                                            type="radio" name="jekel" id="laki" value="Laki-laki"
-                                            {{ $users->jekel == 'Laki-laki' ? 'checked' : '' }} disabled>
-                                        <label class="form-check-label" for="inlineRadio1">Laki-laki</label>
+                                        <input class="form-check-input @error('gender') is-invalid @enderror"
+                                            type="radio" name="gender" id="laki" value="Man"
+                                            {{ $users->gender == 'Man' ? 'checked' : '' }} disabled>
+                                        <label class="form-check-label" for="inlineRadio1">Man</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input @error('jekel') is-invalid @enderror"
-                                            type="radio" name="jekel" id="perempuan" value="Perempuan"
-                                            {{ $users->jekel == 'Perempuan' ? 'checked' : '' }} disabled>
-                                        <label class="form-check-label" for="inlineRadio2">Perempuan</label>
+                                        <input class="form-check-input @error('gender') is-invalid @enderror"
+                                            type="radio" name="gender" id="woman" value="woman"
+                                            {{ $users->gender == 'woman' ? 'checked' : '' }} disabled>
+                                        <label class="form-check-label" for="inlineRadio2">Women</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row mt-2">
                                 <div class="col-md-12">
-                                    <label class="labels">Tanggal lahir<sup class="text-danger fw-bold">*</sup> :</label>
-                                    <input type="date" class="form-control @error('tgl_lahir') is-invalid @enderror"
-                                        placeholder="Tanggal lahir" name="tgl_lahir"
-                                        value="{{ old('tgl_lahir', $users->tgl_lahir) }}" id="tgl_lahir" readonly>
+                                    <label class="labels">Date of birth<sup class="text-danger fw-bold">*</sup> :</label>
+                                    <input type="date"
+                                        class="form-control @error('date_of_birth') is-invalid @enderror"
+                                        placeholder="Date of birth" name="date_of_birth"
+                                        value="{{ old('date_of_birth', $users->date_of_birth) }}" id="date_of_birth"
+                                        readonly>
                                 </div>
                             </div>
                             <div class="row mt-2">
@@ -153,7 +160,7 @@
                                 @if (auth()->user()->id == $users->id)
                                     <div class="mt-4">
                                         <button class="btn btn-dark w-100 disabled" id="tombolPerbarui"
-                                            type="submit">Perbarui</button>
+                                            type="submit">Update</button>
                                     </div>
                                 @endif
                             @endauth
@@ -226,22 +233,22 @@
         const editcheck = document.getElementById('editcheck');
         const name = document.getElementById('name');
         const driver_license_number = document.getElementById('username');
-        const tgl_lahir = document.getElementById('tgl_lahir');
+        const date_of_birth = document.getElementById('date_of_birth');
         const email = document.getElementById('email');
         // const alamat = document.getElementById('alamat');
         const tombolPerbarui = document.getElementById('tombolPerbarui');
         const laki = document.getElementById('laki');
-        const perempuan = document.getElementById('perempuan');
+        const woman = document.getElementById('woman');
         const image = document.getElementById('image');
 
         editcheck.addEventListener('change', function() {
             name.readOnly = !this.checked;
             driver_license_number.readOnly = !this.checked;
-            tgl_lahir.readOnly = !this.checked;
+            date_of_birth.readOnly = !this.checked;
             email.readOnly = !this.checked;
             // alamat.readOnly = !this.checked;
             laki.disabled = !this.checked;
-            perempuan.disabled = !this.checked;
+            woman.disabled = !this.checked;
             image.disabled = !this.checked;
 
             if (editcheck.checked) {

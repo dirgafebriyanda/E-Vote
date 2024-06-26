@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Sistem Multi Pilihan | {{ $title }}</title>
+    <title>Sistem Multi Pilihan</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -28,10 +28,7 @@
     </style>
 </head>
 
-<body class="bg-gradient-danger">
-    @yield('content')
-    <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+<body>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Core plugin JavaScript-->
@@ -39,9 +36,6 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
-
-    <!-- Custom scripts-->
-    <script src="{{ asset('js/script.js') }}"></script>
 
 </body>
 

@@ -16,7 +16,7 @@
                                         src="{{ asset('storage/' . $users->image) }}">
                                 @else
                                     <img id="preview" class="rounded-circle img-fluid my-5" width="80px"
-                                        src="{{ $users->jekel == 'Laki-laki' ? asset('img/user/man.png') : ($users->jekel == 'Perempuan' ? asset('img/user/woman.png') : asset('img/user/user-default.png')) }}">
+                                        src="{{ $users->gender == 'Man' ? asset('img/user/man.png') : ($users->gender == 'Woman' ? asset('img/user/woman.png') : asset('img/user/user-default.png')) }}">
                                 @endif
                                 <h6>{{ $users->username }}</h6>
                                 <p>Web Designer</p>
@@ -27,7 +27,7 @@
                                     <hr class="mt-0 mb-4">
                                     <div class="row pt-1">
                                         <div class="col-12">
-                                            <h6>Nama :</h6>
+                                            <h6>Name :</h6>
                                             <p class="text-muted">{{ $users->name }}</p>
                                         </div>
                                     </div>
@@ -48,12 +48,12 @@
                                                     <option value="Admin" {{ $users->role == 'Admin' ? 'selected' : '' }}>
                                                         Admin</option>
                                                     <option value="User" {{ $users->role == 'User' ? 'selected' : '' }}>
-                                                        Pengguna
+                                                        User
                                                     </option>
                                                 </select>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-sm btn-dark my-3 btn-block">Simpan</button>
+                                        <button type="submit" class="btn btn-sm btn-dark my-3 btn-block">Save</button>
                                     </form>
                                     {{-- <h6>Projects</h6>
                                     <hr class="mt-0 mb-4">

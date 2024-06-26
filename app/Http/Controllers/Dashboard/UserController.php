@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Election;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,10 +19,12 @@ class UserController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $election = Election::all();
         $user = User::orderBy('id', 'desc')->paginate(5);
         return view('dashboard.user.index', [
             'title' => 'List User',
             'users' => $user,
+            'elections' => $election,
         ]);
     }
 

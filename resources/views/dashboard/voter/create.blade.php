@@ -1,23 +1,23 @@
 @extends('dashboard.layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row d-flex justify-content-center">
             <div class="col-sm-6">
                 <div class="card shadow">
                     <div class="card-header py-3">
                         <a href="{{ route('dashboard') }}" class="m-0 font-weight-bold"><i
-                                class="fas fa-fw fa-tachometer-alt"></i> Dashboard </a>/ Create candidate
+                                class="fas fa-fw fa-tachometer-alt"></i>Dashboard </a>/ Create voter
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('candidate.store') }}" method="POST">
+                        <form action="{{ route('voter.store') }}" method="POST">
                             @csrf
                             @method('post')
                             <div class="row mt-3">
                                 <div class="col-md-12">
-                                    <label class="labels">Candidate :</label>
+                                    <label class="labels">Voter :</label>
                                     <select name="user_id" id="" class="form-control">
-                                        <option value="" selected disabled>Select candidate</option>
+                                        <option value="" selected disabled>Select voter</option>
                                         @foreach ($users as $item)
                                             @if ($item->role != 'Super admin')
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -46,4 +46,5 @@
                 </div>
             </div>
         </div>
-    @endsection
+    </div>
+@endsection

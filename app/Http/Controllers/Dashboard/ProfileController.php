@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Election;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,15 +13,18 @@ class ProfileController extends Controller
 {
     public function index($username)
     {
+
         $user = Auth::user();
         // Cari user berdasarkan username
+        $election = Election::all();
         $user = User::where('username', $username)->firstOrFail();
         if (Auth::user()->id !== $user->id) {
             return redirect()->back();
         }
         return view('dashboard.user.profile', [
             'title' => 'Profile',
-            'users' => $user
+            'users' => $user,
+            'elections' => $election,
         ]);
     }
 
@@ -31,8 +35,8 @@ class ProfileController extends Controller
             'username' => 'required|max:250',
             'name' => 'required|max:250',
             'image' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048',
-            'jekel' => 'required|max:9',
-            'tgl_lahir' => 'required',
+            'gender' => 'required|max:9',
+            'date_of_birth' => 'required|date',
             'email' => 'required|email',
         ]);
 
@@ -49,7 +53,7 @@ class ProfileController extends Controller
         if ($user) {
             return redirect()->route('profile', ['username' => $user->username]);
         }
-        return redirect()->back()->with('error', 'Gagal');
+        return redirect()->back()->with('error', 'Failed');
     }
 
     public function delete($username)

@@ -7,14 +7,14 @@
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
+            <div class="card-header">
                 <div class="justify-content-between d-flex">
                     <div>
                         <a href="{{ route('dashboard') }}" class="m-0 font-weight-bold"><i
-                                class="fas fa-fw fa-tachometer-alt"></i>Menu Utama </a>/ Daftar Pengguna
+                                class="fas fa-fw fa-tachometer-alt"></i> Dashboard </a>/ Users list
                     </div>
                     <div>
-                        <a href="#" class="btn btn-sm btn-dark shadow-sm"><i class="fas fa-download fa-sm"></i></a>
+                        <a href="#" class="btn btn-sm btn-danger shadow-sm"><i class="fas fa-download fa-sm"></i></a>
                     </div>
                 </div>
             </div>
@@ -24,10 +24,10 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama</th>
+                                <th>Name</th>
                                 <th>Email</th>
-                                <th>Peran</th>
-                                <th>Aksi</th>
+                                <th>Role</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
 
@@ -41,7 +41,7 @@
                                     <td>
                                         <div class="row">
                                             <div class="col-6 col-sm-4">
-                                                <a href="{{ route('show', $item->id) }}" class="btn btn-dark btn-sm"><i
+                                                <a href="{{ route('show', $item->id) }}" class="btn btn-primary btn-sm"><i
                                                         class="fas fa-eye"></i></a>
                                             </div>
                                             @if (auth()->user()->id != $item->id)
@@ -57,15 +57,15 @@
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title" id="exampleModalLabel">
-                                                                        Konfirmasi</h5>
+                                                                        Confirmation</h5>
                                                                     <button class="close" type="button"
                                                                         data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">×</span>
                                                                     </button>
                                                                 </div>
-                                                                <div class="modal-body">Pilih Ok jika anda ingin
-                                                                    menghapus
-                                                                    data {{ $item->username }}.</div>
+                                                                <div class="modal-body">Select '<span
+                                                                        class="text-danger">OK</span>' if you want to delete
+                                                                    the data {{ $item->username }}.</div>
                                                                 <div class="modal-footer">
                                                                     <button class="btn btn-secondary" type="button"
                                                                         data-dismiss="modal">Cancel</button>

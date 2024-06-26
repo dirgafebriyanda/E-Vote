@@ -9,9 +9,15 @@ class Candidate extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+        protected $with = ['election'];
 
         public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class);
     }
+        public function election()
+    {
+        return $this->belongsTo(Election::class);
+    }
+
 }

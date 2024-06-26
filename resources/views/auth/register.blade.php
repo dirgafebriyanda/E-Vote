@@ -41,7 +41,7 @@
                                                     placeholder="Repeat Password" name="password_confirmation">
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-dark btn-user btn-block">
+                                        <button type="submit" class="btn btn-danger btn-user btn-block">
                                             Register Account
                                         </button>
                                     </form>
