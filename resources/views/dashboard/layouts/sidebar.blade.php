@@ -23,10 +23,11 @@
     <hr class="sidebar-divider">
 
     <!-- Heading -->
+    @if (auth()->user()->role == 'Super admin')
     <div class="sidebar-heading">
         Interface
     </div>
-    @if (auth()->user()->role == 'Super admin')
+    
         <!-- Nav Item - User -->
         <li class="nav-item">
             <a class="nav-link" href="{{ route('user') }}">
