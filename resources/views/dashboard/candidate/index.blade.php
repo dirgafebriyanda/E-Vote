@@ -77,7 +77,7 @@
                                                                     class="text-danger">OK</span>' if you want to delete
                                                                 the data {{ $item->name }}.</div>
                                                             <div class="modal-footer">
-                                                                <button class="btn btn-secondary" type="button"
+                                                                <button class="btn btn-info" type="button"
                                                                     data-dismiss="modal">Cancel</button>
                                                                 <form action="{{ route('candidate.destroy', $item->id) }}"
                                                                     method="post">
